@@ -1,0 +1,83 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+<script language="javascript">
+jQuery(function() {
+	
+	$("#tblKeywordList tr").on("click", function() {
+		var trObj = $(this);
+		var rank 		= trObj.find("td").eq("0").text();
+		var keyword = trObj.find("td").eq("1").text();
+			
+		if( !$(this).hasClass("on")) {
+			$(this).addClass("on");
+			$(this).removeClass("off");
+			
+			var divList = $( "#dvSchKeywordList" );
+			var template = $("#templateSchKeywordDiv").html();
+			template = template.replace( /{{id}}/g , "schKeyword_" + rank  );
+			template = template.replace( /{{keyword}}/g , keyword );
+			template = template.replace( /{{classNm}}/g , "on" );
+			
+			$( "#dvSchKeywordList" ).append($(template));
+			
+			
+	
+			$(".sch-keyword-div").on("click", function() {
+				$(this).remove();
+				trObj.removeClass("on");
+			})
+			
+		} else {
+			$(this).addClass("off");
+			$(this).removeClass("on");
+			$("#schKeyword_"+rank).remove();
+		}
+	});
+	
+});	
+
+function fnDelSchKeyword(obj) {
+	$(obj).parent().remove();
+}
+</script>
+<style>
+		.on {background-color:#ccc}
+		.off {background-color:#fff}
+		.keyword-list {width:100%; height:30px}
+		.sch-keyword-div{width:150px; height:28px; line-height:28px; margin:10px; float:left;border:1px solid;}
+</style>
+</head>
+<body>
+	
+	<table id="tblKeywordList" border="1" width="500">
+		<tr>
+				<th>순위</th>
+				<th>키워드</th>
+		</tr>
+		<tr>
+				<td>1</td>
+				<td>제주도</td>
+		</tr>
+		<tr>
+				<td>2</td>
+				<td>부산</td>
+		</tr>
+		<tr>
+				<td>3</td>
+				<td>강화도</td>
+		</tr>
+	</table>
+	
+	
+	<div id="dvSchKeywordList" class="keyword-list">
+	</div> 
+</body>
+</html>
+
+<!-- 선택된 키워드를 div로 삽입하기위한 템플릿 -->
+<script id="templateSchKeywordDiv" type="text/x-template">
+	<div id="{{id}}" class="sch-keyword-div {{classNm}}">
+      {{keyword}} <span onclick="fnDelSchKeyword(this)">[ x ]</span>
+  </div>
+</script>
