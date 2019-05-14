@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<style type="text/css">
+</style>
+
+<script>
+  function fnDrow(mode){
+    var funcs = {
+        "chart1" : function(val1, val2){fnDrow01(val1, val2);},
+        "chart2" : function(val1, val2){fnDrow02(val1, val2);}
+    }
+    return funcs[mode];
+  }
+
+  function fnDrow01(val1, val2) {
+    console.log("fnDrow01 : " + val1 + "/" + val2);
+  }
+  
+  function fnDrow02(val1, val2) {
+    console.log("fnDrow02 : " + val1 + "/" + val2);
+    
+  }
+  
+  var funNmList = ['chart1', 'chart2'];
+  for ( var i=0; i < funNmList.length; i++ ) {
+    console.log("i : " + i + "/" + funNmList[i]);
+    var fnNm = funNmList[i];
+    fnDrow(fnNm)(100, 200);
+  
+  }
+  
+  
+  fnDrow('chart1')('x:50px','y:150px');
+  fnDrow('chart2')('x:100px','y:200px');
+</script>
+</head>
+<body>
+</body>
+</html>
